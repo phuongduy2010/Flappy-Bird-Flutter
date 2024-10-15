@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 
 import '../../Global/functions.dart';
 
-class BirdSettings extends StatelessWidget {
+class BirdSettings extends StatefulWidget {
   const BirdSettings({Key? key}) : super(key: key);
 
+  @override
+  State<BirdSettings> createState() => _BirdSettingsState();
+}
+
+class _BirdSettingsState extends State<BirdSettings> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,52 +23,44 @@ class BirdSettings extends StatelessWidget {
             child: myText("Characters", Colors.black, 20)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Str.bird = "assets/pics/bird.png";
-                write("bird", Str.bird);
-              },
-              child: SizedBox(
-                width: 75,
-                height: 75,
-                child: Image.asset(
-                  "assets/pics/bird.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Str.bird = "assets/pics/blue.png";
-                write("bird", Str.bird);
-              },
-              child: SizedBox(
-                width: 75,
-                height: 75,
-                child: Image.asset(
-                  "assets/pics/blue.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Str.bird = "assets/pics/green.png";
-                write("bird", Str.bird);
-              },
-              child: SizedBox(
-                width: 75,
-                height: 75,
-                child: Image.asset(
-                  "assets/pics/green.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ],
-        ),
+            children: getCharacters()),
       ],
     );
+  }
+
+  Map<String, String> _getCharactersMap() {
+    Map<String, String> characters = {
+      "bird": "assets/pics/bird.png",
+      "blue": "assets/pics/blue.png",
+      "green": "assets/pics/green.png"
+    };
+    return characters;
+  }
+
+  List<Widget> getCharacters() {
+    Map<String, String> characters = _getCharactersMap();
+    List<Widget> list = [];
+    characters.forEach((key, value) {
+      list.add(GestureDetector(
+        onTap: () {
+          setState(() {
+            Str.bird = value;
+            write("bird", Str.bird);
+          });
+        },
+        child: Opacity(
+          opacity: Str.bird == value ? 1 : 0.4,
+          child: SizedBox(
+            width: 75,
+            height: 75,
+            child: Image.asset(
+              value,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ));
+    });
+    return list;
   }
 }

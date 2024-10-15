@@ -49,7 +49,7 @@ class _SettingsState extends State<Settings> {
                   DifficultySettings(),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.cyan.shade300,
+                        backgroundColor: Colors.cyan.shade300,
                       ),
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => StartScreen(),),);

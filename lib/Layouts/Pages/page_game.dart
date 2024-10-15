@@ -36,10 +36,26 @@ class _GamePageState extends State<GamePage> {
                     alignment: Alignment(0, -0.3),
                     child: myText(gameHasStarted ? '' : 'TAP TO START',Colors.white,25),
                   ),
-                  Barrier(barrierHeight[0][0], barrierWidth, barrierX[0], true),
-                  Barrier(barrierHeight[0][1], barrierWidth, barrierX[0], false),
-                  Barrier(barrierHeight[1][0], barrierWidth, barrierX[1], true),
-                  Barrier(barrierHeight[1][1], barrierWidth, barrierX[1], false),
+                  Barrier(
+                      barrierHeight: barrierHeight[0][0],
+                      barrierWidth: barrierWidth,
+                      direction: barrierX[0],
+                      isTop: true),
+                  Barrier(
+                      barrierHeight: barrierHeight[0][1],
+                      barrierWidth: barrierWidth,
+                      direction: barrierX[0],
+                      isTop: false),
+                  Barrier(
+                      barrierHeight: barrierHeight[1][0],
+                      barrierWidth: barrierWidth,
+                      direction: barrierX[1],
+                      isTop: true),
+                  Barrier(
+                      barrierHeight: barrierHeight[1][1],
+                      barrierWidth: barrierWidth,
+                      direction: barrierX[1],
+                      isTop: false),
                   Positioned(
                     bottom: 1, right: 1, left: 1,
                     child: Container(child: Row(
@@ -99,6 +115,12 @@ class _GamePageState extends State<GamePage> {
         timer.cancel();
         _showDialog();
       }
+      else {
+        if (score > 0 && score % 10 == 0 && !_isPassLevel) {
+          timer.cancel();
+          _showaExeDialog();
+        }
+      }
       time += 0.032;
     });
     /* <  Calculate Score  > */
@@ -114,6 +136,9 @@ class _GamePageState extends State<GamePage> {
             topScore++;
           }
           score++;
+          if (score % 10 == 0) {
+            timer.cancel();
+          }
         });
       }
     });
@@ -121,10 +146,12 @@ class _GamePageState extends State<GamePage> {
 
   /// Make sure the [Bird] doesn't go out screen & hit the barrier
   bool birdIsDead() {
+    
     // Screen
     if (yAxis > 1.26 || yAxis < -1.1) {
       return true;
     }
+    return false;
     /// Barrier hitBox
     for (int i = 0; i < barrierX.length; i++) {
       if (barrierX[i] <= birdWidth &&
@@ -151,6 +178,14 @@ class _GamePageState extends State<GamePage> {
     });
   }
 
+  void resetGameHack() {
+    Navigator.pop(context);
+    Future.delayed(Duration(seconds: 2), () {
+      _isPassLevel = false;
+    });
+    startGame();
+  }
+
   // TODO: Alert Dialog with 2 options (try again, exit)
   void _showDialog() {
     showDialog(
@@ -160,11 +195,12 @@ class _GamePageState extends State<GamePage> {
         return AlertDialog(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          title: myText("..Oops", Colors.blue[900], 35),
+          title: myText("...Oops", Colors.blue[900], 35),
           actionsPadding: EdgeInsets.only(right: 8, bottom: 8),
           content: Container(
-            child: Lottie.asset("assets/pics/loss.json",
-                fit: BoxFit.cover),
+            child: Image.asset("assets/pics/pando.jpeg", fit: BoxFit.cover),
+            //  child:Lottie.asset("assets/pics/loss.json",
+            //     fit: BoxFit.cover),
           ),
           actions: [
             gameButton(() {
@@ -174,6 +210,32 @@ class _GamePageState extends State<GamePage> {
             gameButton(() {
               resetGame();
             }, "try again", Colors.green),
+          ],
+        );
+      },
+    );
+  }
+  bool _isPassLevel = false;
+  void _showaExeDialog() {
+    _isPassLevel = true;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+          title: myText("I, THE EXECUTIONER", Colors.blue[900], 35),
+          actionsPadding: EdgeInsets.only(right: 8, bottom: 8),
+          content: Container(
+            // child: Lottie.asset("assets/pics/sunshine.jpg", fit: BoxFit.cover),
+            child: Image.asset("assets/pics/sunshine.jpeg", fit: BoxFit.cover),
+          ),
+          actions: [
+            gameButton(() {
+              resetGameHack();
+            }, "Continue", Colors.green),
           ],
         );
       },

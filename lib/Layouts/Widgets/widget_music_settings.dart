@@ -27,15 +27,28 @@ class _MusicSettingsState extends State<MusicSettings> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(onTap: () async {
+                    setState(() {
+                      play = true;
                 write("audio", true);
+                    });
                 await player.resume();
               },
-                  child: Icon(Icons.music_note_rounded,size: 40,)),
+                  child: Opacity(
+                      opacity: play ? 1 : 0.4,
+                      child: Icon(
+                        Icons.music_note_rounded,
+                        size: 40,
+                      ))),
               GestureDetector(onTap: () async {
+                    setState(() {
+                      play = false;
                 write("audio", false);
+                    });
                 await player.pause();
               },
-                  child: Icon(Icons.music_off_rounded,size: 40)),
+                  child: Opacity(
+                      opacity: play ? 0.4 : 1,
+                      child: Icon(Icons.music_off_rounded, size: 40))),
             ],
           ),
         ],

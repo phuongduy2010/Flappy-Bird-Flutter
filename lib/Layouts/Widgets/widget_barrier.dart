@@ -9,7 +9,11 @@ class Barrier extends StatelessWidget {
   final double direction;
 
 
-  Barrier(this.barrierHeight, this.barrierWidth,this.direction, this.isTop);
+  Barrier(
+      {required this.barrierHeight,
+      required this.barrierWidth,
+      required this.direction,
+      required this.isTop});
 
   @override
   Widget build(BuildContext context) {

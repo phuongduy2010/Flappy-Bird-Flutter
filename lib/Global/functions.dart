@@ -19,7 +19,7 @@ Text myText(String txt, Color? color, double size){
 ElevatedButton gameButton(VoidCallback? onPress, String txt, Color color){
   return ElevatedButton(
     onPressed: onPress,
-    style: ElevatedButton.styleFrom(primary: color),
+    style: ElevatedButton.styleFrom(backgroundColor: color),
     child: myText(txt,Colors.white,20),
   );
 }
@@ -79,7 +79,7 @@ void init() {
     write("audio", play);
   }
   if(play){
-    player.play(AssetSource("audio/Tintin.mp3"));
+    player.play(AssetSource("audio/em_muon_lam_co_giao.mp3"));
   }else{
     player.stop();
   }

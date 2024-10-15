@@ -21,32 +21,33 @@ class _ThemesSettingsState extends State<ThemesSettings> {
           Center(child: Container(margin: EdgeInsets.symmetric(vertical: 10),child: Text("Themes",style: TextStyle(fontSize: 20,fontFamily: "Magic4"))),),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(onTap: (){
-                setState(() {
-                  Str.image = "0";
-                  write("background", Str.image);
-                  background(Str.image);
-                });
-              },child: Image.asset("assets/pics/0.png",width: 73,height: 70,)),
-              GestureDetector(onTap: (){
-                setState(() {
-                  Str.image = "1";
-                  write("background", Str.image);
-                  background(Str.image);
-                });
-              },child: Image.asset("assets/pics/1.png",width: 73,height: 70,)),
-              GestureDetector(onTap: (){
-                setState(() {
-                  Str.image = "2";
-                  write("background", Str.image);
-                  background(Str.image);
-                });
-              },child: Image.asset("assets/pics/2.png",width: 63,height: 66,)),
-            ],
+            children: getThemes(),
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> getThemes() {
+    List<Widget> list = [];
+    for (var i = 0; i <= 2; i++) {
+      list.add(GestureDetector(
+          onTap: () {
+            setState(() {
+              Str.image = "$i";
+              write("background", Str.image);
+              background(Str.image);
+            });
+          },
+          child: Opacity(
+            opacity: Str.image == "$i" ? 1 : 0.4,
+            child: Image.asset(
+              "assets/pics/$i.png",
+              width: 73,
+              height: 70,
+            ),
+          )));
+    }
+    return list;
   }
 }
