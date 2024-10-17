@@ -30,9 +30,10 @@ class _BirdSettingsState extends State<BirdSettings> {
 
   Map<String, String> _getCharactersMap() {
     Map<String, String> characters = {
-      "bird": "assets/pics/bird.png",
-      "blue": "assets/pics/blue.png",
-      "green": "assets/pics/green.png"
+      "pando_sunshine": "assets/pics/pando_sunshine.jpeg",
+      "family": "assets/pics/family.jpeg",
+      "sunshine": "assets/pics/sunshine.jpeg",
+      "pando": "assets/pics/pando.jpeg"
     };
     return characters;
   }

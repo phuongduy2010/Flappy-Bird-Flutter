@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flappy_bird/Database/database.dart';
+import 'package:flappy_bird/Global/constant.dart';
 import 'package:flappy_bird/Resources/strings.dart';
 import 'package:flutter/material.dart';
 import '../../Global/functions.dart';
@@ -30,7 +31,7 @@ class _ThemesSettingsState extends State<ThemesSettings> {
 
   List<Widget> getThemes() {
     List<Widget> list = [];
-    for (var i = 0; i <= 2; i++) {
+    for (var i = 1; i <= 3; i++) {
       list.add(GestureDetector(
           onTap: () {
             setState(() {
@@ -42,7 +43,7 @@ class _ThemesSettingsState extends State<ThemesSettings> {
           child: Opacity(
             opacity: Str.image == "$i" ? 1 : 0.4,
             child: Image.asset(
-              "assets/pics/$i.png",
+              characterImages[i]!,
               width: 73,
               height: 70,
             ),

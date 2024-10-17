@@ -35,7 +35,7 @@ BoxDecoration frame(){
 BoxDecoration background(String y){
   return BoxDecoration(
     image: DecorationImage(
-        image: AssetImage("assets/pics/$y.png"),
+        image: AssetImage(y),
         fit: BoxFit.fill),
   );
 }
@@ -79,13 +79,24 @@ void init() {
     write("audio", play);
   }
   if(play){
-    player.play(AssetSource("audio/em_muon_lam_co_giao.mp3"));
+    _initBackgroundMusic();
   }else{
     player.stop();
   }
   player.setReleaseMode(ReleaseMode.loop);
 }
 
+void _initBackgroundMusic() {
+  int currentAudioIndex = 0;
+  player.play(AssetSource(backgroundAudios.first));
+  player.onPlayerComplete.listen((e) {
+    currentAudioIndex++;
+    if (currentAudioIndex >= backgroundAudios.length) {
+      currentAudioIndex = 0;
+    }
+    player.play(AssetSource(backgroundAudios[currentAudioIndex]));
+  });
+}
 void navigate(context,navigate){
   switch(navigate){
     case Str.gamePage:

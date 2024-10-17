@@ -32,7 +32,7 @@ class _StartScreenState extends State<StartScreen> {
       body: Container(
         width: size.width,
         height: size.height,
-        decoration: background(Str.image),
+        decoration: background(characterImages[int.parse(Str.image)]!),
         child: Column(
           children: [
             // Flappy bird text

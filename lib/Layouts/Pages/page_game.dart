@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, avoid_print
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
 import 'package:flappy_bird/Layouts/Pages/page_start_screen.dart';
 import 'package:flappy_bird/Layouts/Widgets/widget_bird.dart';
 import 'package:flappy_bird/Layouts/Widgets/widget_barrier.dart';
@@ -27,7 +29,7 @@ class _GamePageState extends State<GamePage> {
           Expanded(
             flex: 3,
             child: Container(
-              decoration: background(Str.image),
+              decoration: background(characterImages[int.parse(Str.image)]!),
               child: Stack(
                 children: [
                   Bird(yAxis, birdWidth, birdHeight),
@@ -180,7 +182,7 @@ class _GamePageState extends State<GamePage> {
 
   void resetGameHack() {
     Navigator.pop(context);
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 4), () {
       _isPassLevel = false;
     });
     startGame();
@@ -188,6 +190,7 @@ class _GamePageState extends State<GamePage> {
 
   // TODO: Alert Dialog with 2 options (try again, exit)
   void _showDialog() {
+    var intValue = Random().nextInt(10) + 1; // Value is >= 0 and < 11.
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -198,7 +201,7 @@ class _GamePageState extends State<GamePage> {
           title: myText("...Oops", Colors.blue[900], 35),
           actionsPadding: EdgeInsets.only(right: 8, bottom: 8),
           content: Container(
-            child: Image.asset("assets/pics/pando.jpeg", fit: BoxFit.cover),
+            child: Image.asset(characterImages[intValue]!, fit: BoxFit.cover),
             //  child:Lottie.asset("assets/pics/loss.json",
             //     fit: BoxFit.cover),
           ),
@@ -217,6 +220,7 @@ class _GamePageState extends State<GamePage> {
   }
   bool _isPassLevel = false;
   void _showaExeDialog() {
+    var intValue = Random().nextInt(10) + 1; // Value is >= 0 and < 11.
     _isPassLevel = true;
     showDialog(
       context: context,
@@ -230,7 +234,7 @@ class _GamePageState extends State<GamePage> {
           actionsPadding: EdgeInsets.only(right: 8, bottom: 8),
           content: Container(
             // child: Lottie.asset("assets/pics/sunshine.jpg", fit: BoxFit.cover),
-            child: Image.asset("assets/pics/sunshine.jpeg", fit: BoxFit.cover),
+            child: Image.asset(characterImages[intValue]!, fit: BoxFit.cover),
           ),
           actions: [
             gameButton(() {

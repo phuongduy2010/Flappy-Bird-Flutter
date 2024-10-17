@@ -35,3 +35,23 @@ double screenStart = 3.5;
 /// audio
 final player = AudioPlayer();
 bool play = true;
+
+const List<String> backgroundAudios = [
+  "audio/em_muon_lam_co_giao.mp3",
+  "audio/bac_kim_thang.mp3",
+  "audio/ba_oi_ba.mp3",
+  "audio/vong_tay_ba_me.wav",
+  "audio/mot_vong_viet_nam.mp3",
+];
+Map<int, String> characterImages = {
+  1: "assets/pics/pando_4.jpeg",
+  2: "assets/pics/papy_mamy.jpeg",
+  3: "assets/pics/sunshine_2.jpeg",
+  4: "assets/pics/family.jpeg",
+  5: "assets/pics/sunshine.jpeg",
+  6: "assets/pics/pando_3.jpeg",
+  7: "assets/pics/pando_sunshine.jpeg",
+  8: "assets/pics/mamy_sunshine.jpeg",
+  9: "assets/pics/pando_2.jpeg",
+  10: "assets/pics/papy_pando.jpeg",
+};

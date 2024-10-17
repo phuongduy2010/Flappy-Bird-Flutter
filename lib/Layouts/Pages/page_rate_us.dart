@@ -36,7 +36,7 @@ class RateUs extends StatelessWidget {
                     ),
                     onPressed: (){
                   Share.share(
-                      "https://github.com/phuongduy2010/Flappy-Bird-Flutter/releases/download/v.0.4.2/app-release.apk");
+                      "https://github.com/phuongduy2010/Flappy-Bird-Flutter/releases/download/v1.0.0/app-release.apk");
                     }, child: Icon(Icons.share_rounded,size: 30,), ),
                 )
               ],
